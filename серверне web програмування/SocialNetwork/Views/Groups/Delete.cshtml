@@ -1,0 +1,19 @@
+@model Group
+@{
+    ViewData["Title"] = "Delete group";
+}
+
+<div class="page-header">
+    <h1>Delete group</h1>
+</div>
+<div class="panel form-sheet">
+    <p>Delete <strong>@Model.Name</strong>?</p>
+    <p class="muted">Membership records will be removed: @Model.Memberships.Count. The users themselves will stay.</p>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</div>

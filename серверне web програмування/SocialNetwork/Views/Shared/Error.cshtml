@@ -1,0 +1,14 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="panel form-sheet">
+    <h1>Something went wrong</h1>
+    <p class="muted">Go back to the home page and try again.</p>
+    @if (Model.ShowRequestId)
+    {
+        <p><strong>Request ID:</strong> <code>@Model.RequestId</code></p>
+    }
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</a>
+</div>

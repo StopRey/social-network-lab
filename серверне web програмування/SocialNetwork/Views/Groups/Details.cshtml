@@ -1,0 +1,122 @@
+@model GroupDetailsViewModel
+@{
+    ViewData["Title"] = Model.Group.Name;
+    var group = Model.Group;
+}
+
+<div class="profile">
+    <span class="avatar lg">@group.Name.FirstOrDefault()</span>
+    <div>
+        <h1>@group.Name</h1>
+        <p>@group.City · @(group.IsPrivate ? "Private" : "Public")</p>
+    </div>
+    <div class="actions ms-auto">
+        <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@group.Id">Edit</a>
+        <a class="btn btn-outline-secondary" asp-action="Index">Back to list</a>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-5">
+        <div class="panel">
+            <h2 class="section-title">About</h2>
+            <dl class="facts">
+                <div>
+                    <dt>Category</dt>
+                    <dd>@group.Category</dd>
+                </div>
+                <div>
+                    <dt>City</dt>
+                    <dd>@group.City</dd>
+                </div>
+                <div>
+                    <dt>Access</dt>
+                    <dd><span class="pill @(group.IsPrivate ? "solid" : "")">@(group.IsPrivate ? "Private" : "Public")</span></dd>
+                </div>
+                <div>
+                    <dt>Created</dt>
+                    <dd>@group.CreatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+                </div>
+                <div>
+                    <dt>Description</dt>
+                    <dd>@group.Description</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="panel">
+            <h2 class="section-title">Members</h2>
+            @if (group.Memberships.Any())
+            {
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Joined</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var membership in group.Memberships.OrderBy(m => m.User.LastName))
+                    {
+                        var initials = $"{membership.User.FirstName.FirstOrDefault()}{membership.User.LastName.FirstOrDefault()}";
+                        <tr>
+                            <td>
+                                <a class="who" asp-controller="Users" asp-action="Details" asp-route-id="@membership.UserId">
+                                    <span class="avatar">@initials</span>
+                                    <strong>@membership.User.FullName</strong>
+                                </a>
+                            </td>
+                            <td><span class="pill @(membership.Role == "Administrator" ? "solid" : "")">@membership.Role</span></td>
+                            <td>@membership.JoinedAt.ToString("dd.MM.yyyy")</td>
+                            <td class="text-end">
+                                <form asp-controller="Memberships" asp-action="Remove" method="post">
+                                    <input type="hidden" name="userId" value="@membership.UserId" />
+                                    <input type="hidden" name="groupId" value="@group.Id" />
+                                    <input type="hidden" name="returnTo" value="group" />
+                                    <button class="btn btn-sm btn-outline-danger" type="submit">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="empty">This group has no members yet.</p>
+            }
+
+            @if (Model.AvailableUsers.Any())
+            {
+                <form asp-controller="Memberships" asp-action="Add" method="post" class="join-form row g-2 align-items-end">
+                    <input type="hidden" name="groupId" value="@group.Id" />
+                    <input type="hidden" name="returnTo" value="group" />
+                    <div class="col-md-5">
+                        <label class="form-label">User</label>
+                        <select name="userId" class="form-select">
+                            @foreach (var user in Model.AvailableUsers)
+                            {
+                                <option value="@user.Id">@user.FullName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Role</label>
+                        <select name="role" class="form-select">
+                            @foreach (var role in DomainOptions.GroupRoles)
+                            {
+                                <option>@role</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary w-100" type="submit">Add</button>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>

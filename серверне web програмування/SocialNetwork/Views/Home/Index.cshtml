@@ -1,0 +1,31 @@
+﻿@model HomeStats
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero">
+    <h1>Social Network</h1>
+    <p>A user can belong to many groups, and a group can have many users.</p>
+    <div class="hero-actions">
+        <a class="btn btn-accent" asp-controller="Users" asp-action="Index">Users</a>
+        <a class="btn btn-ghost" asp-controller="Groups" asp-action="Index">Groups</a>
+    </div>
+</section>
+
+<section class="stats">
+    <article class="stat-card">
+        <span>Users</span>
+        <strong>@Model.UsersCount</strong>
+        <a asp-controller="Users" asp-action="Index">Open list</a>
+    </article>
+    <article class="stat-card">
+        <span>Groups</span>
+        <strong>@Model.GroupsCount</strong>
+        <a asp-controller="Groups" asp-action="Index">Open list</a>
+    </article>
+    <article class="stat-card">
+        <span>Memberships</span>
+        <strong>@Model.MembershipsCount</strong>
+        <a asp-controller="Groups" asp-action="Index">Open list</a>
+    </article>
+</section>

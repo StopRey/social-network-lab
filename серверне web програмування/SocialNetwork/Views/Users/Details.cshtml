@@ -1,0 +1,113 @@
+@model UserDetailsViewModel
+@{
+    ViewData["Title"] = Model.User.FullName;
+    var user = Model.User;
+    var initials = $"{user.FirstName.FirstOrDefault()}{user.LastName.FirstOrDefault()}";
+}
+
+<div class="profile">
+    <span class="avatar lg">@initials</span>
+    <div>
+        <h1>@user.FullName</h1>
+        <p>@user.City</p>
+    </div>
+    <div class="actions ms-auto">
+        <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@user.Id">Edit</a>
+        <a class="btn btn-outline-secondary" asp-action="Index">Back to list</a>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-5">
+        <div class="panel">
+            <h2 class="section-title">Profile</h2>
+            <dl class="facts">
+                <div>
+                    <dt>Email</dt>
+                    <dd>@user.Email</dd>
+                </div>
+                <div>
+                    <dt>Date of birth</dt>
+                    <dd>@user.BirthDate.ToString("dd.MM.yyyy")</dd>
+                </div>
+                <div>
+                    <dt>Registered</dt>
+                    <dd>@user.RegisteredAt.ToString("dd.MM.yyyy HH:mm")</dd>
+                </div>
+                <div>
+                    <dt>Bio</dt>
+                    <dd>@(string.IsNullOrWhiteSpace(user.Bio) ? "—" : user.Bio)</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="panel">
+            <h2 class="section-title">Groups</h2>
+            @if (user.Memberships.Any())
+            {
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Group</th>
+                            <th>Role</th>
+                            <th>Joined</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var membership in user.Memberships.OrderBy(m => m.Group.Name))
+                    {
+                        <tr>
+                            <td><a asp-controller="Groups" asp-action="Details" asp-route-id="@membership.GroupId">@membership.Group.Name</a></td>
+                            <td><span class="pill @(membership.Role == "Administrator" ? "solid" : "")">@membership.Role</span></td>
+                            <td>@membership.JoinedAt.ToString("dd.MM.yyyy")</td>
+                            <td class="text-end">
+                                <form asp-controller="Memberships" asp-action="Remove" method="post">
+                                    <input type="hidden" name="userId" value="@user.Id" />
+                                    <input type="hidden" name="groupId" value="@membership.GroupId" />
+                                    <input type="hidden" name="returnTo" value="user" />
+                                    <button class="btn btn-sm btn-outline-danger" type="submit">Leave</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="empty">This user is not in any group yet.</p>
+            }
+
+            @if (Model.AvailableGroups.Any())
+            {
+                <form asp-controller="Memberships" asp-action="Add" method="post" class="join-form row g-2 align-items-end">
+                    <input type="hidden" name="userId" value="@user.Id" />
+                    <input type="hidden" name="returnTo" value="user" />
+                    <div class="col-md-5">
+                        <label class="form-label">Group</label>
+                        <select name="groupId" class="form-select">
+                            @foreach (var group in Model.AvailableGroups)
+                            {
+                                <option value="@group.Id">@group.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Role</label>
+                        <select name="role" class="form-select">
+                            @foreach (var role in DomainOptions.GroupRoles)
+                            {
+                                <option>@role</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary w-100" type="submit">Add</button>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>

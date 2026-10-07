@@ -1,0 +1,19 @@
+@model User
+@{
+    ViewData["Title"] = "Delete user";
+}
+
+<div class="page-header">
+    <h1>Delete user</h1>
+</div>
+<div class="panel form-sheet">
+    <p>Delete <strong>@Model.FullName</strong> (@Model.Email)?</p>
+    <p class="muted">Group memberships will be removed as well: @Model.Memberships.Count.</p>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</div>

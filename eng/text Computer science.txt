@@ -1,0 +1,22 @@
+Slide 1: Title Screen
+Good morning, everyone. My name is Vadym. I am currently a Master's student in Computer Science here at Lviv Polytechnic National University. However, today I want to take a step back and share my experience of studying this specialty during my Bachelor's degree.
+
+Slide 2: What is Computer Science?
+When people think of a Bachelor's in Computer Science, they usually just picture someone typing code. But from my current perspective, I realize the most valuable thing we gained wasn't just syntax - it was the deep, underlying foundation. We learned how to solve complex problems efficiently. We dove deep into Data Structures, Object-Oriented Programming, and System Architecture. It was about understanding the fundamental logic behind the machine.
+
+Slide 3: The First Year & Coding on Paper
+But if I had to pick the most vivid and foundational memory from my early undergraduate years, it would be our exams on the very first course. We didn't have the luxury of an IDE auto-completing our code. We had to write C++ code by hand, on blank sheets of paper. I want to express my deepest gratitude to our teacher, Zoreslava Yaroslavivna Shpak, for this experience. It felt incredibly difficult at the time, but writing code on paper gave me an unbreakable foundation of true algorithmic thinking.
+
+Slide 4: Bridging Software and Hardware: ESP32
+As we progressed through the Bachelor's program, we stepped out of the purely digital world and started working with physical hardware. One of the most fascinating parts of our curriculum was working with ESP32 microcontrollers. We learned Embedded C/C++ and explored the Internet of Things (IoT). Making sensors work and connecting microcontrollers to wireless networks showed us the direct physical impact of our software.
+
+Slide 5: Assembly Language: Unforgettable Emotions
+Then came the ultimate undergraduate challenge: Assembly language. If coding on paper was a test of discipline, Assembly was a test of survival. Instead of using high-level commands, we were directly manipulating CPU registers and managing physical memory. I can confidently say that studying Assembly brought me unforgettable emotions — a mix of absolute frustration when a single bit was wrong, and pure euphoria when the program finally executed correctly. 
+
+Slide 6: Career Prospects
+Now that I have been working as a Software Engineer for already two years alongside my studies, I can clearly see where this Bachelor's foundation leads in the real world. A degree in Computer Science from Lviv Polytechnic doesn't lock you into one single job; it gives you the flexibility to adapt to real industry demands. It prepares you to be a Software Engineer, an Embedded Systems Developer, or eventually a Systems Architect. 
+
+Slide 7: Conclusion & Q&A
+In retrospect, my Bachelor's degree in Computer Science wasn't just a list of programming languages I learned — it was the development of an engineering mindset. It gave me the ability to take a massive, overwhelming problem, break it down, and build a working solution from the ground up. I am incredibly proud of this journey, and it’s the reason I decided to continue my studies here for my Master's.
+
+Thank you so much for your time and attention
